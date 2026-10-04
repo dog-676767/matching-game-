@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">เกมจับคู่กาแล็กซี่ดาราศาสตร์</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-bg"></div>
+
+    <div class="game-container">
+        <!-- หน้าจอเมนูหลัก -->
+        <div id="main-menu" class="screen active">
+            <h1 data-i18n="gameTitle">🌌 ผจญภัยกาแล็กซี่</h1>
+            <p data-i18n="gameSubtitle">เรียนรู้กาแล็กซี่ผ่านการจับคู่</p>
+            <div class="menu-buttons">
+                <button class="btn primary" onclick="showScreen('game-screen'); startGame();" data-i18n="startBtn">เริ่มเกม</button>
+                <button class="btn secondary" onclick="showScreen('settings-screen')" data-i18n="settingsBtn">ตั้งค่า</button>
+                <button class="btn secondary" onclick="showScreen('guide-screen')" data-i18n="guideBtn">คู่มือ</button>
+                <button class="btn accent" onclick="openLogin()" data-i18n="loginBtn">เข้าสู่ระบบ</button>
+            </div>
+        </div>
+
+        <!-- หน้าจอตั้งค่า -->
+        <div id="settings-screen" class="screen">
+            <h2 data-i18n="settingsTitle">การตั้งค่า</h2>
+            <div class="setting-group">
+                <label data-i18n="langLabel">ภาษา / 语言:</label>
+                <select id="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="th">ไทย</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label data-i18n="soundLabel">เสียงเอฟเฟกต์:</label>
+                <input type="checkbox" id="sound-toggle" checked onchange="toggleSound(this.checked)">
+            </div>
+            <button class="btn secondary" onclick="showScreen('main-menu')" data-i18n="backBtn">กลับ</button>
+        </div>
+
+        <!-- หน้าจอคู่มือ -->
+        <div id="guide-screen" class="screen">
+            <h2 data-i18n="guideTitle">คู่มือการเล่น</h2>
+            <div class="guide-content">
+                <p data-i18n="guideDesc">จับคู่ภาพกาแล็กซี่ที่เหมือนกันภายในเวลาที่กำหนด</p>
+                <ul data-i18n-list="guideRules">
+                    <li>จับคู่ให้ถูกต้องเพื่อรับคะแนน</li>
+                    <li>ทำคะแนนให้ถึงเป้าหมายก่อนหมดเวลาเพื่อชนะ</li>
+                    <li>หากคะแนนไม่ถึงเกณฑ์เมื่อหมดเวลา จะถือว่าแพ้</li>
+                </ul>
+            </div>
+            <button class="btn secondary" onclick="showScreen('main-menu')" data-i18n="backBtn">กลับ</button>
+        </div>
+
+        <!-- หน้าจอล็อกอิน (จำลองบน LocalStorage) -->
+        <div id="login-screen" class="screen">
+            <h2 data-i18n="loginTitle">บันทึกข้อมูลผู้เล่น</h2>
+            <div class="setting-group">
+                <input type="text" id="username-input" placeholder="กรอกชื่อนักเรียน...">
+            </div>
+            <button class="btn primary" onclick="saveUser()" data-i18n="saveBtn">บันทึก</button>
+            <button class="btn secondary" onclick="showScreen('main-menu')" data-i18n="backBtn">กลับ</button>
+        </div>
+
+        <!-- หน้าจอเกมหลัก -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div><span data-i18n="scoreLabel">คะแนน:</span> <span id="score">0</span> / <span id="target-score">60</span></div>
+                <div><span data-i18n="timeLabel">เวลา:</span> <span id="timer">45</span>s</div>
+                <button class="btn-sm" onclick="showScreen('main-menu'); pauseGame();" data-i18n="quitBtn">ออก</button>
+            </div>
+            <div id="card-grid" class="card-grid"></div>
+        </div>
+
+        <!-- หน้าจอผลลัพธ์ (ชนะ/แพ้) -->
+        <div id="result-screen" class="screen">
+            <h2 id="result-title">ผลลัพธ์</h2>
+            <p id="result-desc"></p>
+            <button class="btn primary" onclick="showScreen('main-menu')" data-i18n="homeBtn">กลับสู่เมนูหลัก</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+              </html>
+                
